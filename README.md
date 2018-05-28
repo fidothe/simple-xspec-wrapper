@@ -22,13 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
-    $ xspec /path/to/xspec
+    $ simple-xspec /path/to/xspec
 
 It will run all `.xspec` files under the path you passed in.
 
 If you use Saxon PE or EE, then drop run the command from the directory your `saxon-license.lic` file is in and it'll pick that up and look in the `$SAXON_HOME` environment variable to find your copy of Saxon PE/EE (defaulting to `/opt/saxon` if that isn't set).
 
-    $ SAXON_HOME=/path/to/saxon_dir xspec /path/to/specs
+    $ SAXON_HOME=/path/to/saxon_dir simple-xspec /path/to/specs
+
+Each `.xspec` file is run independently - as a separate XSLT transformation. This means that a runtime error in one file won't prevent others from running.
 
 ## Development
 
