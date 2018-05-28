@@ -1,0 +1,16 @@
+#!/usr/bin/env jruby
+
+require 'pathname'
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
+  Pathname.new(__FILE__).realpath)
+
+require 'rubygems'
+require 'bundler/setup'
+
+require_relative '../lib/xspec'
+
+compiler = XSpec::Compiler.new
+suite = XSpec::Suite.new(compiler, ARGV[0])
+suite.run!
+exit 1 if suite.failures_or_errors?
+exit 0

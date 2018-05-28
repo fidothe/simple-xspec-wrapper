@@ -1,0 +1,1125 @@
+<?xml-stylesheet type="text/xsl" href="file:/Users/matt/Documents/work/current/xcential/simple-xspec-wrapper/vendor/xspec-1.0.0/src/compiler/format-xspec-report.xsl"?><x:report xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:test="http://www.jenitennison.com/xslt/unit-test"
+          xmlns:x="http://www.jenitennison.com/xslt/xspec"
+          xmlns:uslm="http://schemas.gpo.gov/xml/uslm/2.0"
+          xmlns:xhtml="http://www.w3.org/1999/xhtml"
+          xmlns:gpo="http://www.gpo.gov/"
+          stylesheet="file:/Users/matt/Documents/work/current/xcential/GPO-USLM-FR-CFR/transforms/body-content.xsl"
+          date="2018-05-28T13:30:01.27+02:00">
+   <x:scenario>
+      <x:label>gpo:paras</x:label>
+      <x:scenario>
+         <x:label>nesting plus chapeau</x:label>
+         <x:context mode="body-content">
+            <gpo:para element="P">
+               <gpo:numbering display="a">
+                  <gpo:candidate level="1" number="1"/>
+               </gpo:numbering>
+               <gpo:chapeau>
+                  <gpo:content>Content</gpo:content>
+               </gpo:chapeau>
+               <gpo:para element="P">
+                  <gpo:numbering display="1">
+                     <gpo:candidate level="2" number="1"/>
+                  </gpo:numbering>
+                  <gpo:content-block>
+                     <gpo:content>Nested content</gpo:content>
+                  </gpo:content-block>
+               </gpo:para>
+            </gpo:para>
+         </x:context>
+         <x:result>
+            <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                       identifier="/us/cfr/t1/s32.1/a"
+                       style="-uslm-sgm: P;">
+               <num>(a)</num>
+               <chapeau>Content</chapeau>
+               <paragraph identifier="/us/cfr/t1/s32.1/a/1" style="-uslm-sgm: P;">
+                  <num>(1)</num>
+                  <content>Nested content</content>
+               </paragraph>
+            </paragraph>
+         </x:result>
+         <x:test successful="true">
+            <x:label>nested with a chapeau</x:label>
+            <x:expect>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          style="-uslm-sgm: P;"
+                          identifier="/us/cfr/t1/s32.1/a">
+                  <num>(a)</num>
+                  <chapeau>Content</chapeau>
+                  <paragraph style="-uslm-sgm: P;" identifier="/us/cfr/t1/s32.1/a/1">
+                     <num>(1)</num>
+                     <content>Nested content</content>
+                  </paragraph>
+               </paragraph>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>nesting plus multi-element chapeau</x:label>
+         <x:context mode="body-content">
+            <gpo:para element="P">
+               <gpo:numbering display="a">
+                  <gpo:candidate level="1" number="1"/>
+               </gpo:numbering>
+               <gpo:chapeau>
+                  <gpo:content>Chapeau</gpo:content>
+                  <P>Also Chapeau</P>
+               </gpo:chapeau>
+               <gpo:para element="P">
+                  <gpo:numbering display="1">
+                     <gpo:candidate level="2" number="1"/>
+                  </gpo:numbering>
+                  <gpo:content-block>
+                     <gpo:content>Nested content</gpo:content>
+                  </gpo:content-block>
+               </gpo:para>
+            </gpo:para>
+         </x:context>
+         <x:result>
+            <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                       identifier="/us/cfr/t1/s32.1/a"
+                       style="-uslm-sgm: P;">
+               <num>(a)</num>
+               <chapeau>
+                  <p>Chapeau</p>
+                  <p style="-uslm-sgm: P;">Also Chapeau</p>
+               </chapeau>
+               <paragraph identifier="/us/cfr/t1/s32.1/a/1" style="-uslm-sgm: P;">
+                  <num>(1)</num>
+                  <content>Nested content</content>
+               </paragraph>
+            </paragraph>
+         </x:result>
+         <x:test successful="true">
+            <x:label>nested with a chapeau</x:label>
+            <x:expect>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          style="-uslm-sgm: P;"
+                          identifier="/us/cfr/t1/s32.1/a">
+                  <num>(a)</num>
+                  <chapeau>
+                     <p>Chapeau</p>
+                     <p style="-uslm-sgm: P;">Also Chapeau</p>
+                  </chapeau>
+                  <paragraph style="-uslm-sgm: P;" identifier="/us/cfr/t1/s32.1/a/1">
+                     <num>(1)</num>
+                     <content>Nested content</content>
+                  </paragraph>
+               </paragraph>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>nesting plus non-gpo:content chapeau</x:label>
+         <x:context mode="body-content">
+            <gpo:para element="P">
+               <gpo:numbering display="a">
+                  <gpo:candidate level="1" number="1"/>
+               </gpo:numbering>
+               <gpo:chapeau>
+                  <P>Also Chapeau</P>
+               </gpo:chapeau>
+               <gpo:para element="P">
+                  <gpo:numbering display="1">
+                     <gpo:candidate level="2" number="1"/>
+                  </gpo:numbering>
+                  <gpo:content-block>
+                     <gpo:content>Nested content</gpo:content>
+                  </gpo:content-block>
+               </gpo:para>
+            </gpo:para>
+         </x:context>
+         <x:result>
+            <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                       identifier="/us/cfr/t1/s32.1/a"
+                       style="-uslm-sgm: P;">
+               <num>(a)</num>
+               <chapeau style="-uslm-sgm: P;">Also Chapeau</chapeau>
+               <paragraph identifier="/us/cfr/t1/s32.1/a/1" style="-uslm-sgm: P;">
+                  <num>(1)</num>
+                  <content>Nested content</content>
+               </paragraph>
+            </paragraph>
+         </x:result>
+         <x:test successful="true">
+            <x:label>nested with a chapeau</x:label>
+            <x:expect>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          style="-uslm-sgm: P;"
+                          identifier="/us/cfr/t1/s32.1/a">
+                  <num>(a)</num>
+                  <chapeau style="-uslm-sgm: P;">Also Chapeau</chapeau>
+                  <paragraph style="-uslm-sgm: P;" identifier="/us/cfr/t1/s32.1/a/1">
+                     <num>(1)</num>
+                     <content>Nested content</content>
+                  </paragraph>
+               </paragraph>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>nesting plus non-gpo:content or P chapeau</x:label>
+         <x:context mode="body-content">
+            <gpo:para element="P">
+               <gpo:numbering display="a">
+                  <gpo:candidate level="1" number="1"/>
+               </gpo:numbering>
+               <gpo:chapeau>
+                  <EXTRACT/>
+               </gpo:chapeau>
+               <gpo:para element="P">
+                  <gpo:numbering display="1">
+                     <gpo:candidate level="2" number="1"/>
+                  </gpo:numbering>
+                  <gpo:content-block>
+                     <gpo:content>Nested content</gpo:content>
+                  </gpo:content-block>
+               </gpo:para>
+            </gpo:para>
+         </x:context>
+         <x:result>
+            <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                       identifier="/us/cfr/t1/s32.1/a"
+                       style="-uslm-sgm: P;">
+               <num>(a)</num>
+               <chapeau>
+                  <note style="-uslm-sgm: EXTRACT;">
+                     <content/>
+                  </note>
+               </chapeau>
+               <paragraph identifier="/us/cfr/t1/s32.1/a/1" style="-uslm-sgm: P;">
+                  <num>(1)</num>
+                  <content>Nested content</content>
+               </paragraph>
+            </paragraph>
+         </x:result>
+         <x:test successful="true">
+            <x:label>nested with a chapeau with children</x:label>
+            <x:expect>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          style="-uslm-sgm: P;"
+                          identifier="/us/cfr/t1/s32.1/a">
+                  <num>(a)</num>
+                  <chapeau>
+                     <note style="-uslm-sgm: EXTRACT;">...</note>
+                  </chapeau>
+                  <paragraph style="-uslm-sgm: P;" identifier="/us/cfr/t1/s32.1/a/1">
+                     <num>(1)</num>
+                     <content>Nested content</content>
+                  </paragraph>
+               </paragraph>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>marked as definitions</x:label>
+         <x:context mode="body-content">
+            <gpo:para element="P" role="definitions">
+               <gpo:numbering display="a">
+                  <gpo:candidate level="1" number="1"/>
+               </gpo:numbering>
+               <gpo:heading definitions="true">Definitions.</gpo:heading>
+               <gpo:content-block>
+                  <gpo:content>For purposes, definitions:</gpo:content>
+                  <P>(i) Issues debt</P>
+               </gpo:content-block>
+            </gpo:para>
+         </x:context>
+         <x:result>
+            <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                       role="definitions"
+                       identifier="/us/cfr/t1/s32.1/a"
+                       style="-uslm-sgm: P;">
+               <num>(a)</num>
+               <heading>Definitions.</heading>
+               <content>
+                  <p>For purposes, definitions:</p>
+                  <p style="-uslm-sgm: P;">(i) Issues debt</p>
+               </content>
+            </paragraph>
+         </x:result>
+         <x:test successful="true">
+            <x:label>para is correctly marked with p's in a content</x:label>
+            <x:expect>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          role="definitions"
+                          style="-uslm-sgm: P;"
+                          identifier="/us/cfr/t1/s32.1/a">
+                  <num>(a)</num>
+                  <heading>Definitions.</heading>
+                  <content>
+                     <p>For purposes, definitions:</p>
+                     <p style="-uslm-sgm: P;">(i) Issues debt</p>
+                  </content>
+               </paragraph>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+   </x:scenario>
+   <x:scenario>
+      <x:label>[Reserved] things</x:label>
+      <x:scenario>
+         <x:label>Marking ordinary paras reserved</x:label>
+         <x:context mode="body-content">
+            <P>(b) [Reserved]</P>
+         </x:context>
+         <x:result>
+            <p xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+               style="-uslm-sgm: P;"
+               role="reserved">(b) [Reserved]</p>
+         </x:result>
+         <x:test successful="true">
+            <x:label>a reserved para</x:label>
+            <x:expect>
+               <p xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                  style="-uslm-sgm: P;"
+                  role="reserved">(b) [Reserved]</p>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>unreserved ordinary paras are not marked</x:label>
+         <x:context mode="body-content">
+            <P>Blah</P>
+         </x:context>
+         <x:result>
+            <p xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: P;">Blah</p>
+         </x:result>
+         <x:test successful="true">
+            <x:label>an unreserved para</x:label>
+            <x:expect>
+               <p xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: P;">Blah</p>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>marking gpo:para reserved</x:label>
+         <x:scenario>
+            <x:label>when reserved</x:label>
+            <x:context mode="body-content">
+               <gpo:para element="P">
+                  <gpo:numbering display="b"/>
+                  <gpo:content-block>
+                     <gpo:content> [Reserved]</gpo:content>
+                  </gpo:content-block>
+               </gpo:para>
+            </x:context>
+            <x:result>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          role="reserved"
+                          identifier="/us/cfr/t1/s32.1/b"
+                          style="-uslm-sgm: P;">
+                  <num>(b)</num>
+                  <content> [Reserved]</content>
+               </paragraph>
+            </x:result>
+            <x:test successful="true">
+               <x:label>a reserved para</x:label>
+               <x:expect>
+                  <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                             style="-uslm-sgm: P;"
+                             role="reserved"
+                             identifier="/us/cfr/t1/s32.1/b">
+                     <num>(b)</num>
+                     <content> [Reserved]</content>
+                  </paragraph>
+               </x:expect>
+            </x:test>
+         </x:scenario>
+         <x:scenario>
+            <x:label>unreserved paras are not marked</x:label>
+            <x:context mode="body-content">
+               <gpo:para element="P">
+                  <gpo:numbering display="b"/>
+                  <gpo:content-block>
+                     <gpo:content> Blah</gpo:content>
+                  </gpo:content-block>
+               </gpo:para>
+            </x:context>
+            <x:result>
+               <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                          identifier="/us/cfr/t1/s32.1/b"
+                          style="-uslm-sgm: P;">
+                  <num>(b)</num>
+                  <content> Blah</content>
+               </paragraph>
+            </x:result>
+            <x:test successful="true">
+               <x:label>an unreserved para</x:label>
+               <x:expect>
+                  <paragraph xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                             style="-uslm-sgm: P;"
+                             identifier="/us/cfr/t1/s32.1/b">
+                     <num>(b)</num>
+                     <content> Blah</content>
+                  </paragraph>
+               </x:expect>
+            </x:test>
+         </x:scenario>
+      </x:scenario>
+   </x:scenario>
+   <x:scenario>
+      <x:label>Notes</x:label>
+      <x:scenario>
+         <x:label>a NOTE</x:label>
+         <x:context mode="body-content">
+            <NOTE>
+               <HED>A note</HED>
+               <P>Para 1</P>
+               <P>Para 2</P>
+            </NOTE>
+         </x:context>
+         <x:result>
+            <note xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: NOTE;">
+               <heading style="-uslm-sgm: HED;">A note</heading>
+               <p style="-uslm-sgm: P;">Para 1</p>
+               <p style="-uslm-sgm: P;">Para 2</p>
+            </note>
+         </x:result>
+         <x:test successful="true">
+            <x:label>creating</x:label>
+            <x:expect>
+               <note xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: NOTE;">
+                  <heading style="-uslm-sgm: HED;">A note</heading>
+                  <p style="-uslm-sgm: P;">Para 1</p>
+                  <p style="-uslm-sgm: P;">Para 2</p>
+               </note>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>an EDNOTE</x:label>
+         <x:context mode="body-content">
+            <EDNOTE>
+               <HED>An editorial note</HED>
+               <P>Para 1</P>
+               <P>Para 2</P>
+            </EDNOTE>
+         </x:context>
+         <x:result>
+            <editorialNote xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: EDNOTE;">
+               <heading style="-uslm-sgm: HED;">An editorial note</heading>
+               <p style="-uslm-sgm: P;">Para 1</p>
+               <p style="-uslm-sgm: P;">Para 2</p>
+            </editorialNote>
+         </x:result>
+         <x:test successful="true">
+            <x:label>creating</x:label>
+            <x:expect>
+               <editorialNote xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: EDNOTE;">
+                  <heading style="-uslm-sgm: HED;">An editorial note</heading>
+                  <p style="-uslm-sgm: P;">Para 1</p>
+                  <p style="-uslm-sgm: P;">Para 2</p>
+               </editorialNote>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+   </x:scenario>
+   <x:scenario>
+      <x:label>EFFDNOT/EFFDNOTP</x:label>
+      <x:scenario>
+         <x:label>EFFDNOTP with REVTXT</x:label>
+         <x:context mode="body-content">
+            <EFFDNOTP>
+               <HED>Effective Date Note:</HED>
+               <P>At 81 FR 35980, June 3, 2016, § 49.151 was amended by revising paragraph (b)(1), effective Aug. 2, 2016. For the convenience of the user, the revised text is set forth as follows:</P>
+               <REVTXT/>
+            </EFFDNOTP>
+         </x:context>
+         <x:result>
+            <effectiveDateNote xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: EFFDNOTP;">
+               <heading style="-uslm-sgm: HED;">Effective Date Note:</heading>
+               <p style="-uslm-sgm: P;">At 81 FR 35980, June 3, 2016, § 49.151 was amended by revising paragraph (b)(1), effective Aug. 2, 2016. For the convenience of the user, the revised text is set forth as follows:</p>
+               <quotedContent style="-uslm-sgm: REVTXT;"/>
+            </effectiveDateNote>
+         </x:result>
+         <x:test successful="true">
+            <x:label>correctly created</x:label>
+            <x:expect>
+               <effectiveDateNote xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: EFFDNOTP;">
+                  <heading style="-uslm-sgm: HED;">Effective Date Note:</heading>
+                  <p style="-uslm-sgm: P;">At 81 FR 35980, June 3, 2016, § 49.151 was amended by revising paragraph (b)(1), effective Aug. 2, 2016. For the convenience of the user, the revised text is set forth as follows:</p>
+                  <quotedContent style="-uslm-sgm: REVTXT;"/>
+               </effectiveDateNote>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>EFFDNOT without REVTXT</x:label>
+         <x:context mode="body-content">
+            <EFFDNOT>
+               <HED>Effective Date Note:</HED>
+               <P>At 73 FR 67109, Nov. 13, 2008, paragraph (d)(3) of § 49.23 was stayed until further notice. § 49.23 was redesignated as § 49.5512 at 76 FR 23879, Apr. 29, 2011.</P>
+            </EFFDNOT>
+         </x:context>
+         <x:result>
+            <effectiveDateNote xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: EFFDNOT;">
+               <heading style="-uslm-sgm: HED;">Effective Date Note:</heading>
+               <p style="-uslm-sgm: P;">At 73 FR 67109, Nov. 13, 2008, paragraph (d)(3) of § 49.23 was stayed until further notice. § 49.23 was redesignated as § 49.5512 at 76 FR 23879, Apr. 29, 2011.</p>
+            </effectiveDateNote>
+         </x:result>
+         <x:test successful="true">
+            <x:label>correctly created</x:label>
+            <x:expect>
+               <effectiveDateNote xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: EFFDNOT;">
+                  <heading style="-uslm-sgm: HED;">Effective Date Note:</heading>
+                  <p style="-uslm-sgm: P;">At 73 FR 67109, Nov. 13, 2008, paragraph (d)(3) of § 49.23 was stayed until further notice. § 49.23 was redesignated as § 49.5512 at 76 FR 23879, Apr. 29, 2011.</p>
+               </effectiveDateNote>
+            </x:expect>
+         </x:test>
+      </x:scenario>
+   </x:scenario>
+   <x:scenario>
+      <x:label>FTNT footnotes</x:label>
+      <x:scenario>
+         <x:label>with a single P child</x:label>
+         <x:context mode="body-content">
+            <gpo:content-block>
+               <P>Hello there<SU>1</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>
+                     <SU>1</SU>The agencies have adopted a uniform rule on real estate lending.</P>
+               </FTNT>
+            </gpo:content-block>
+         </x:context>
+         <x:result>
+            <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd433e4" idref="fnd433e7" style="-uslm-sgm: SU;">1</ref>
+               </p>
+               <footnote id="fnd433e7" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd433e4" style="-uslm-sgm: SU;">1</ref>The agencies have adopted a uniform rule on real estate lending.</p>
+                  </content>
+               </footnote>
+            </content>
+         </x:result>
+         <x:test successful="true">
+            <x:label>a USLM footnote</x:label>
+            <x:expect>
+               <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." idref="..." style="-uslm-sgm: SU;">1</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">1</ref>The agencies have adopted a uniform rule on real estate lending.</p>
+                     </content>
+                  </footnote>
+               </content>
+            </x:expect>
+         </x:test>
+         <x:test successful="true">
+            <x:label>idref of note ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>idref of footnote backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>with multiple P children</x:label>
+         <x:context mode="body-content">
+            <gpo:content-block>
+               <P>Hello there<SU>1</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>
+                     <SU>1</SU>Additional information may be added:</P>
+                  <P>Dear Mr./Ms. ___:</P>
+                  <P>Info</P>
+               </FTNT>
+            </gpo:content-block>
+         </x:context>
+         <x:result>
+            <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd438e4" idref="fnd438e7" style="-uslm-sgm: SU;">1</ref>
+               </p>
+               <footnote id="fnd438e7" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd438e4" style="-uslm-sgm: SU;">1</ref>Additional information may be added:</p>
+                     <p style="-uslm-sgm: P;">Dear Mr./Ms. ___:</p>
+                     <p style="-uslm-sgm: P;">Info</p>
+                  </content>
+               </footnote>
+            </content>
+         </x:result>
+         <x:test successful="true">
+            <x:label>a USLM footnote</x:label>
+            <x:expect>
+               <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." idref="..." style="-uslm-sgm: SU;">1</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">1</ref>Additional information may be added:</p>
+                        <p style="-uslm-sgm: P;">Dear Mr./Ms. ___:</p>
+                        <p style="-uslm-sgm: P;">Info</p>
+                     </content>
+                  </footnote>
+               </content>
+            </x:expect>
+         </x:test>
+         <x:test successful="true">
+            <x:label>idref of note ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>multiple footnotes referenced from one para</x:label>
+         <x:context mode="body-content">
+            <gpo:content-block>
+               <P>Hello there<SU>1</SU>
+                  <FTREF/> and also here<SU>2</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>
+                     <SU>1</SU>The agencies.</P>
+               </FTNT>
+               <FTNT>
+                  <P>
+                     <SU>2</SU>The uniform rule.</P>
+               </FTNT>
+            </gpo:content-block>
+         </x:context>
+         <x:result>
+            <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd443e4" idref="fnd443e11" style="-uslm-sgm: SU;">1</ref> and also here<ref id="fnd443e8" idref="fnd443e16" style="-uslm-sgm: SU;">2</ref>
+               </p>
+               <footnote id="fnd443e11" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd443e4" style="-uslm-sgm: SU;">1</ref>The agencies.</p>
+                  </content>
+               </footnote>
+               <footnote id="fnd443e16" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd443e8" style="-uslm-sgm: SU;">2</ref>The uniform rule.</p>
+                  </content>
+               </footnote>
+            </content>
+         </x:result>
+         <x:test successful="true">
+            <x:label>two USLM footnotes</x:label>
+            <x:expect>
+               <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." idref="..." style="-uslm-sgm: SU;">1</ref> and also here<ref id="..." idref="..." style="-uslm-sgm: SU;">2</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">1</ref>The agencies.</p>
+                     </content>
+                  </footnote>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">2</ref>The uniform rule.</p>
+                     </content>
+                  </footnote>
+               </content>
+            </x:expect>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 1 ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 1 backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>misnumbered footnotes</x:label>
+         <x:context mode="body-content">
+            <gpo:content-block>
+               <P>Hello there<SU>1</SU>
+                  <FTREF/> and also here<SU>2</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>
+                     <SU>1</SU>The agencies.</P>
+               </FTNT>
+               <FTNT>
+                  <P>
+                     <SU>2</SU>The uniform rule.</P>
+               </FTNT>
+               <P>Hello there<SU>1</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>
+                     <SU>1</SU>The agencies.</P>
+               </FTNT>
+            </gpo:content-block>
+         </x:context>
+         <x:result>
+            <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd450e4" idref="fnd450e11" style="-uslm-sgm: SU;">1</ref> and also here<ref id="fnd450e8" idref="fnd450e16" style="-uslm-sgm: SU;">2</ref>
+               </p>
+               <footnote id="fnd450e11" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd450e4" style="-uslm-sgm: SU;">1</ref>The agencies.</p>
+                  </content>
+               </footnote>
+               <footnote id="fnd450e16" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd450e8" style="-uslm-sgm: SU;">2</ref>The uniform rule.</p>
+                  </content>
+               </footnote>
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd450e23" idref="fnd450e26" style="-uslm-sgm: SU;">1</ref>
+               </p>
+               <footnote id="fnd450e26" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd450e23" style="-uslm-sgm: SU;">1</ref>The agencies.</p>
+                  </content>
+               </footnote>
+            </content>
+         </x:result>
+         <x:test successful="true">
+            <x:label>three USLM footnotes</x:label>
+            <x:expect>
+               <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." idref="..." style="-uslm-sgm: SU;">1</ref> and also here<ref id="..." idref="..." style="-uslm-sgm: SU;">2</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">1</ref>The agencies.</p>
+                     </content>
+                  </footnote>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">2</ref>The uniform rule.</p>
+                     </content>
+                  </footnote>
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." idref="..." style="-uslm-sgm: SU;">1</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">1</ref>The agencies.</p>
+                     </content>
+                  </footnote>
+               </content>
+            </x:expect>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 1 ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 3 ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 1 backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+      </x:scenario>
+      <x:scenario>
+         <x:label>missing refs in footnotes</x:label>
+         <x:context mode="body-content">
+            <gpo:content-block>
+               <P>Hello there<SU>1</SU>
+                  <FTREF/> and also here<SU>2</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>1 The agencies.</P>
+               </FTNT>
+               <FTNT>
+                  <P>
+                     <SU>2</SU>The uniform rule.</P>
+               </FTNT>
+               <P>Hello there<SU>2</SU>
+                  <FTREF/>
+               </P>
+               <FTNT>
+                  <P>
+                     <SU>1</SU>The agencies.</P>
+               </FTNT>
+            </gpo:content-block>
+         </x:context>
+         <x:result>
+            <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd459e4" style="-uslm-sgm: SU;">1</ref> and also here<ref id="fnd459e8" idref="fnd459e14" style="-uslm-sgm: SU;">2</ref>
+               </p>
+               <footnote id="fnd459e11" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">1 The agencies.</p>
+                  </content>
+               </footnote>
+               <footnote id="fnd459e14" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref idref="fnd459e8" style="-uslm-sgm: SU;">2</ref>The uniform rule.</p>
+                  </content>
+               </footnote>
+               <p style="-uslm-sgm: P;">Hello there<ref id="fnd459e21" style="-uslm-sgm: SU;">2</ref>
+               </p>
+               <footnote id="fnd459e24" style="-uslm-sgm: FTNT;">
+                  <content>
+                     <p style="-uslm-sgm: P;">
+                        <ref style="-uslm-sgm: SU;">1</ref>The agencies.</p>
+                  </content>
+               </footnote>
+            </content>
+         </x:result>
+         <x:test successful="true">
+            <x:label>three USLM footnotes, only one of which has correct refs and backrefs</x:label>
+            <x:expect>
+               <content xmlns="http://schemas.gpo.gov/xml/uslm/2.0">
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." style="-uslm-sgm: SU;">1</ref> and also here<ref id="..." idref="..." style="-uslm-sgm: SU;">2</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">1 The agencies.</p>
+                     </content>
+                  </footnote>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;" idref="...">2</ref>The uniform rule.</p>
+                     </content>
+                  </footnote>
+                  <p style="-uslm-sgm: P;">Hello there<ref id="..." style="-uslm-sgm: SU;">2</ref>
+                  </p>
+                  <footnote style="-uslm-sgm: FTNT;" id="...">
+                     <content>
+                        <p style="-uslm-sgm: P;">
+                           <ref style="-uslm-sgm: SU;">1</ref>The agencies.</p>
+                     </content>
+                  </footnote>
+               </content>
+            </x:expect>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 1 ref is empty</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 ref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 3 ref is empty</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 1 backref is empty</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 backref is correct</x:label>
+            <x:expect select="()"/>
+         </x:test>
+         <x:test successful="true">
+            <x:label>footnote 2 backref is empty</x:label>
+            <x:expect select="()"/>
+         </x:test>
+      </x:scenario>
+   </x:scenario>
+   <x:scenario>
+      <x:label>CROSSREF</x:label>
+      <x:context mode="body-content">
+         <CROSSREF>
+            <HED>Cross Reference:</HED>
+            <P>For regulations with respect to distilled spirits, see part 26 of this subchapter.</P>
+         </CROSSREF>
+      </x:context>
+      <x:result>
+         <note xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: CROSSREF;">
+            <heading style="-uslm-sgm: HED;">Cross Reference:</heading>
+            <p style="-uslm-sgm: P;">For regulations with respect to distilled spirits, see part 26 of this subchapter.</p>
+         </note>
+      </x:result>
+      <x:test successful="true">
+         <x:label>a generic content element with heading and para</x:label>
+         <x:expect>
+            <note xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: CROSSREF;">
+               <heading style="-uslm-sgm: HED;">Cross Reference:</heading>
+               <p style="-uslm-sgm: P;">For regulations with respect to distilled spirits, see part 26 of this subchapter.</p>
+            </note>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>the authority element for a Part/Subpart</x:label>
+      <x:context mode="body-content">
+         <AUTH>
+            <HED>Authority:</HED>
+            <P>42 U.S.C. 7401 <E T="03">et seq.</E>
+            </P>
+         </AUTH>
+      </x:context>
+      <x:result>
+         <authority xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: AUTH;">
+            <heading style="-uslm-sgm: HED;">Authority:</heading> 42 U.S.C. 7401 <i style="-uslm-sgm: E;" class="-gpo-grid-0-3">et seq.</i>
+         </authority>
+      </x:result>
+      <x:test successful="true">
+         <x:label>the source is correctly created</x:label>
+         <x:expect>
+            <authority xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: AUTH;">
+               <heading style="-uslm-sgm: HED;">Authority:</heading> 42 U.S.C. 7401 <i style="-uslm-sgm: E;" class="-gpo-grid-0-3">et seq.</i>
+            </authority>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>the source element for a Part/Subpart</x:label>
+      <x:context mode="body-content">
+         <SOURCE>
+            <HED>Source:</HED>
+            <P>57 FR 61992, Dec. 29, 1992, unless otherwise noted.</P>
+         </SOURCE>
+      </x:context>
+      <x:result>
+         <source xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: SOURCE;">
+            <heading style="-uslm-sgm: HED;">Source:</heading> 57 FR 61992, Dec. 29, 1992, unless otherwise noted.</source>
+      </x:result>
+      <x:test successful="true">
+         <x:label>the source is correctly created</x:label>
+         <x:expect>
+            <source xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: SOURCE;">
+               <heading style="-uslm-sgm: HED;">Source:</heading> 57 FR 61992, Dec. 29, 1992, unless otherwise noted.</source>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>LDRWK/LDRFIG two-column tables</x:label>
+      <x:context mode="body-content">
+         <LDRWK>
+            <P>Blah</P>
+            <LDRFIG>1</LDRFIG>
+            <FP>Blah</FP>
+            <LDRFIG>2</LDRFIG>
+            <FP-2>Blah</FP-2>
+            <LDRFIG>3</LDRFIG>
+         </LDRWK>
+      </x:context>
+      <x:result>
+         <xhtml:table xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: LDRWK;">
+            <xhtml:tbody>
+               <xhtml:tr>
+                  <xhtml:td style="-uslm-sgm: P;">Blah</xhtml:td>
+                  <xhtml:td style="-uslm-sgm: LDRFIG;">1</xhtml:td>
+               </xhtml:tr>
+               <xhtml:tr>
+                  <xhtml:td style="-uslm-sgm: FP;">Blah</xhtml:td>
+                  <xhtml:td style="-uslm-sgm: LDRFIG;">2</xhtml:td>
+               </xhtml:tr>
+               <xhtml:tr>
+                  <xhtml:td style="-uslm-sgm: FP-2;">Blah</xhtml:td>
+                  <xhtml:td style="-uslm-sgm: LDRFIG;">3</xhtml:td>
+               </xhtml:tr>
+            </xhtml:tbody>
+         </xhtml:table>
+      </x:result>
+      <x:test successful="true">
+         <x:label>an XHTML table</x:label>
+         <x:expect>
+            <xhtml:table xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: LDRWK;">
+               <xhtml:tbody>
+                  <xhtml:tr>
+                     <xhtml:td style="-uslm-sgm: P;">Blah</xhtml:td>
+                     <xhtml:td style="-uslm-sgm: LDRFIG;">1</xhtml:td>
+                  </xhtml:tr>
+                  <xhtml:tr>
+                     <xhtml:td style="-uslm-sgm: FP;">Blah</xhtml:td>
+                     <xhtml:td style="-uslm-sgm: LDRFIG;">2</xhtml:td>
+                  </xhtml:tr>
+                  <xhtml:tr>
+                     <xhtml:td style="-uslm-sgm: FP-2;">Blah</xhtml:td>
+                     <xhtml:td style="-uslm-sgm: LDRFIG;">3</xhtml:td>
+                  </xhtml:tr>
+               </xhtml:tbody>
+            </xhtml:table>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>SCOL2 lists</x:label>
+      <x:context mode="body-content">
+         <SCOL2>
+            <LI>01—Alabama</LI>
+            <LI>02—Alaska</LI>
+         </SCOL2>
+      </x:context>
+      <x:result>
+         <list xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: SCOL2;">
+            <listItem style="-uslm-sgm: LI;">
+               <listContent>01—Alabama</listContent>
+            </listItem>
+            <listItem style="-uslm-sgm: LI;">
+               <listContent>02—Alaska</listContent>
+            </listItem>
+         </list>
+      </x:result>
+      <x:test successful="true">
+         <x:label>A list</x:label>
+         <x:expect>
+            <list xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: SCOL2;">
+               <listItem style="-uslm-sgm: LI;">
+                  <listContent>01—Alabama</listContent>
+               </listItem>
+               <listItem style="-uslm-sgm: LI;">
+                  <listContent>02—Alaska</listContent>
+               </listItem>
+            </list>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>An EXAMPLE</x:label>
+      <x:context mode="body-content">
+         <EXAMPLE>
+            <HED>E.g.</HED>
+            <P>Example</P>
+         </EXAMPLE>
+      </x:context>
+      <x:result>
+         <block xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                style="-uslm-sgm: EXAMPLE;"
+                role="example">
+            <heading style="-uslm-sgm: HED;">E.g.</heading>
+            <content>
+               <p style="-uslm-sgm: P;">Example</p>
+            </content>
+         </block>
+      </x:result>
+      <x:test successful="true">
+         <x:label>a block with role='example'</x:label>
+         <x:expect>
+            <block xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                   style="-uslm-sgm: EXAMPLE;"
+                   role="example">
+               <heading style="...">...</heading>
+               <content>
+                  <p style="-uslm-sgm: P;">Example</p>
+               </content>
+            </block>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>An APPRO</x:label>
+      <x:context mode="body-content">
+         <APPRO>(Approved)</APPRO>
+      </x:context>
+      <x:result>
+         <note xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+               style="-uslm-sgm: APPRO;"
+               role="approval">(Approved)</note>
+      </x:result>
+      <x:test successful="true">
+         <x:label>a note with role='approval'</x:label>
+         <x:expect>
+            <note xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                  style="-uslm-sgm: APPRO;"
+                  role="approval">(Approved)</note>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>FNP/FNC</x:label>
+      <x:context mode="body-content">
+         <FNC/>
+         <FNP/>
+      </x:context>
+      <x:result>
+         <marker xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                 style="-uslm-sgm: FNC;"
+                 role="column-break"/>
+         <marker xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                 style="-uslm-sgm: FNP;"
+                 role="page-break"/>
+      </x:result>
+      <x:test successful="true">
+         <x:label>markers</x:label>
+         <x:expect>
+            <marker xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                    style="-uslm-sgm: FNC;"
+                    role="column-break"/>
+            <marker xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                    style="-uslm-sgm: FNP;"
+                    role="page-break"/>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>PARAUTH</x:label>
+      <x:context mode="body-content">
+         <PARAUTH TYPE="N">(Sec. 301(a), 81 Stat. 490, 504)</PARAUTH>
+      </x:context>
+      <x:result>
+         <authority xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: PARAUTH;"/>
+      </x:result>
+      <x:test successful="false">
+         <x:label>an authority</x:label>
+         <x:expect>
+            <authority xmlns="http://schemas.gpo.gov/xml/uslm/2.0" style="-uslm-sgm: PARAUTH;">
+               <content>(Sec. 301(a), 81 Stat. 490, 504)</content>
+            </authority>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+   <x:scenario>
+      <x:label>Q</x:label>
+      <x:context mode="body-content">
+         <Q P="02"/>
+      </x:context>
+      <x:result>
+         <br xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+             style="-uslm-sgm: Q; -gpo-Q-P: 02;"/>
+      </x:result>
+      <x:test successful="true">
+         <x:label>a br with an appropriate class</x:label>
+         <x:expect>
+            <br xmlns="http://schemas.gpo.gov/xml/uslm/2.0"
+                style="-uslm-sgm: Q; -gpo-Q-P: 02;"/>
+         </x:expect>
+      </x:test>
+   </x:scenario>
+</x:report>

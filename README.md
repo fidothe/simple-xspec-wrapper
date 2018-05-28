@@ -2,6 +2,8 @@
 
 A simple wrapper around Xspec to run, independently, all .xspec files in a folder hierarchy.
 
+It assumes XSLT.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -20,7 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-  $ simple-xspec-wrapper /path/to/xspec
+    $ xspec /path/to/xspec
+
+It will run all `.xspec` files under the path you passed in.
+
+If you use Saxon PE or EE, then drop run the command from the directory your `saxon-license.lic` file is in and it'll pick that up and look in the `$SAXON_HOME` environment variable to find your copy of Saxon PE/EE (defaulting to `/opt/saxon` if that isn't set).
+
+    $ SAXON_HOME=/path/to/saxon_dir xspec /path/to/specs
 
 ## Development
 
