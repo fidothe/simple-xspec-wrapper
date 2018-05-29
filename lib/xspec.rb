@@ -16,10 +16,7 @@ module XSpec
       begin
         SpecFile.new(processor, xspec_path, transformer(xspec_path))
       rescue Exception => e
-        puts "Problem compiling XSpec file #{xspec_path}"
-        puts e
-        puts e.backtrace
-        nil
+        BrokenSpecFile.new(xspec_path, e.to_s)
       end
     end
 
@@ -118,6 +115,38 @@ module XSpec
         ensure_ran!
         spec_files.select { |spec_file| spec_file.successful? }
       end
+    end
+  end
+
+  class BrokenSpecFile
+    attr_reader :path, :error, :failures
+
+    def initialize(path, error)
+      @path, @error = path, error
+      @failures = [].freeze
+    end
+
+    def ran?
+      true
+    end
+
+    def not_run?
+      false
+    end
+
+    def errored?
+      true
+    end
+
+    def failures?
+      false
+    end
+
+    def successful?
+      false
+    end
+
+    def run!
     end
   end
 
